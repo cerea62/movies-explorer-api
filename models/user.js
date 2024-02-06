@@ -22,12 +22,12 @@ const userSchema = new mongoose.Schema(
       default: 'Маша',
       minlength: [2, 'Минимальная длина поля 2 символа'],
       maxlength: [30, 'Максимальная длина поля 30 символа'],
-      required: [true, 'Поле должно быть заполнено']
+      required: [true, 'Поле должно быть заполнено'],
     },
   },
   {
     versionKey: false,
   },
-)
+);
 
 module.exports = mongoose.model('user', userSchema);

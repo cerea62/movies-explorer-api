@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const { errors } = require('celebrate');
 const routerUser = require('./routes/users');
 const routerAuth = require('./routes/auth');
 const routerMovie = require('./routes/movies');
@@ -10,8 +11,8 @@ const errorHandler = require('./middlewares/errorHandler');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const { corsOptions } = require('./utils/constants');
 const auth = require('./middlewares/auth');
-const { errors } = require('celebrate');
 const NotFoundError = require('./errors/NotFoundError');
+
 const { PORT } = process.env;
 
 mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
@@ -30,4 +31,4 @@ app.use(errorLogger);
 app.use(errors());
 app.use(errorHandler);
 
-app.listen(PORT)
+app.listen(PORT);

@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+
 const { ObjectId } = mongoose.Schema.Types;
 const IS_URL = /^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s!"#'()*+,:;<>@[\\\]`{|}~]*$/;
 
@@ -70,6 +71,6 @@ const movieSchema = new mongoose.Schema(
   {
     versionKey: false,
   },
-)
+);
 
 module.exports = mongoose.model('movie', movieSchema);

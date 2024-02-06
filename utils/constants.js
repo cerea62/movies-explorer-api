@@ -11,4 +11,6 @@ const corsOptions = {
   credentials: true,
 };
 
-module.exports = { IS_URL, corsOptions, CREATED, OK, MONGO_DUPLICATE_ERROR };
+module.exports = {
+  IS_URL, corsOptions, CREATED, OK, MONGO_DUPLICATE_ERROR,
+};

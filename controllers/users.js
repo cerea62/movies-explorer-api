@@ -5,7 +5,7 @@ const ConflictError = require('../errors/ConflictError');
 const ValidationError = require('../errors/ValidationError');
 const AccessError = require('../errors/AccessError');
 const NotFoundError = require('../errors/NotFoundError');
-const {CREATED, OK, MONGO_DUPLICATE_ERROR} = require('../utils/constants')
+const { CREATED, OK, MONGO_DUPLICATE_ERROR } = require('../utils/constants');
 
 module.exports.createUser = async (req, res, next) => {
   try {
@@ -15,11 +15,11 @@ module.exports.createUser = async (req, res, next) => {
     }
     const hash = await bcrypt.hash(password, 10);
     const user = User.create({ email, password: hash, name });
-    res.status(CREATED).send({
+    return res.status(CREATED).send({
       _id: user._id,
       email: user.email,
       name: user.name,
-    })
+    });
   } catch (error) {
     if (error.code === MONGO_DUPLICATE_ERROR) {
       return next(new ConflictError('Такой пользователь уже существует'));

@@ -1,13 +1,13 @@
-const Movie = require('../models/movie')
+const Movie = require('../models/movie');
 const ValidationError = require('../errors/ValidationError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenError = require('../errors/ForbiddenError');
-const { CREATED, OK } = require('../utils/constants')
+const { CREATED, OK } = require('../utils/constants');
 
 module.exports.getMovies = async (req, res, next) => {
   try {
     const owner = req.user._id;
-    const movie = await Movie.find({owner});
+    const movie = await Movie.find({ owner });
     return res.status(OK).send(movie);
   } catch (error) {
     return next(error);
@@ -17,8 +17,33 @@ module.exports.getMovies = async (req, res, next) => {
 module.exports.createMovie = async (req, res, next) => {
   try {
     const owner = req.user._id;
-    const { country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId } = req.body;
-    const movie = await Movie.create({ country, director, duration, year, description, image, trailerLink, nameRU, nameEN, thumbnail, movieId, owner });
+    const {
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      nameRU,
+      nameEN,
+      thumbnail,
+      movieId,
+    } = req.body;
+    const movie = await Movie.create({
+      country,
+      director,
+      duration,
+      year,
+      description,
+      image,
+      trailerLink,
+      nameRU,
+      nameEN,
+      thumbnail,
+      movieId,
+      owner,
+    });
     return res.status(CREATED).send(movie);
   } catch (error) {
     if (error.name === 'ValidationError') {

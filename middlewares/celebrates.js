@@ -49,4 +49,3 @@ module.exports.validateMovieId = celebrate({
     id: Joi.string().length(24).hex().required(),
   }),
 }, { abortEarly: false });
-
