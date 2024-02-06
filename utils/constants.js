@@ -4,8 +4,8 @@ const OK = 200;
 const MONGO_DUPLICATE_ERROR = 11000;
 const corsOptions = {
   origin: [
-    'https://cerea62.nomoredomainsmonster.ru',
-    'http://cerea62.nomoredomainsmonster.ru',
+    'https://cerea62.nomoredomainswork.ru',
+    'http://cerea62.nomoredomainswork.ru',
     'http://localhost:3000',
   ],
   credentials: true,
