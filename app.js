@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+const helmet = require('helmet');
 const { errors } = require('celebrate');
 const routerUser = require('./routes/users');
 const routerAuth = require('./routes/auth');
@@ -13,12 +14,14 @@ const { corsOptions } = require('./utils/constants');
 const auth = require('./middlewares/auth');
 const NotFoundError = require('./errors/NotFoundError');
 
-const { PORT } = process.env;
+const { PORT, DATABASE, NODE_ENV } = process.env;
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
+mongoose.connect(NODE_ENV === 'production' ? DATABASE : 'mongodb://127.0.0.1:27017/bitfilmsdb', {
 });
+
 const app = express();
 app.use(cors(corsOptions));
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(requestLogger);
