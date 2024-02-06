@@ -1,7 +1,9 @@
 const mongoose = require('mongoose');
+const { ObjectId } = mongoose.Schema.Types;
 const validator = require('validator');
+const IS_URL = /^(https?:\/\/)?([\w-]{1,32}\.[\w-]{1,32})[^\s!"#'()*+,:;<>@[\\\]`{|}~]*$/;
 
-const movieSchema = new mangoose.Schema(
+const movieSchema = new mongoose.Schema(
   {
     country: {
       type: String,

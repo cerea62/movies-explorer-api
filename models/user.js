@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const userSchema = new mangoose.Schema(
+const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
