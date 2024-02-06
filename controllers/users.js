@@ -68,10 +68,10 @@ module.exports.getUser = async (req, res, next) => {
 
 module.exports.updateUser = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { name, email } = req.body;
     const user = await User.findByIdAndUpdate(
       req.user._id,
-      { name },
+      { name, email },
       { new: true, runValidators: true },
     )
       .orFail(() => new NotFoundError('Пользователь по указанному ID не найден'));
