@@ -1,16 +1,13 @@
 const Movie = require('../models/movie')
-const ConflictError = require('../errors/ConflictError');
 const ValidationError = require('../errors/ValidationError');
-const AccessError = require('../errors/AccessError');
 const NotFoundError = require('../errors/NotFoundError');
 const ForbiddenError = require('../errors/ForbiddenError');
-const CREATED = 201;
-const OK = 200;
-
+const { CREATED, OK } = require('../utils/constants')
 
 module.exports.getMovies = async (req, res, next) => {
   try {
-    const movie = await Movie.find({});
+    const owner = req.user._id;
+    const movie = await Movie.find({owner});
     return res.status(OK).send(movie);
   } catch (error) {
     return next(error);

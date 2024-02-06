@@ -5,9 +5,7 @@ const ConflictError = require('../errors/ConflictError');
 const ValidationError = require('../errors/ValidationError');
 const AccessError = require('../errors/AccessError');
 const NotFoundError = require('../errors/NotFoundError');
-const CREATED = 201;
-const OK = 200;
-const MONGO_DUPLICATE_ERROR = 11000;
+const {CREATED, OK, MONGO_DUPLICATE_ERROR} = require('../utils/constants')
 
 module.exports.createUser = async (req, res, next) => {
   try {
@@ -17,7 +15,7 @@ module.exports.createUser = async (req, res, next) => {
     }
     const hash = await bcrypt.hash(password, 10);
     const user = User.create({ email, password: hash, name });
-    res.status(200).send({
+    res.status(CREATED).send({
       _id: user._id,
       email: user.email,
       name: user.name,
@@ -68,10 +66,10 @@ module.exports.getUser = async (req, res, next) => {
 
 module.exports.updateUser = async (req, res, next) => {
   try {
-    const { name, email } = req.body;
+    const { name } = req.body;
     const user = await User.findByIdAndUpdate(
       req.user._id,
-      { name, email },
+      { name },
       { new: true, runValidators: true },
     )
       .orFail(() => new NotFoundError('Пользователь по указанному ID не найден'));
