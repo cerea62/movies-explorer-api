@@ -9,6 +9,7 @@ const { IS_URL } = require('../utils/constants');
 
 module.exports.validateUpdateUser = celebrate({
   body: Joi.object().keys({
+    email: Joi.string().required().email(),
     name: Joi.string().min(2).max(30).required(),
   }),
 }, { abortEarly: false });
@@ -45,7 +46,7 @@ module.exports.validateMovieData = celebrate({
 }, { abortEarly: false });
 
 module.exports.validateMovieId = celebrate({
-  body: Joi.object().keys({
-    id: Joi.string().length(24).hex().required(),
+  params: Joi.object().keys({
+    movieId: Joi.string().length(24).hex().required(),
   }),
 }, { abortEarly: false });

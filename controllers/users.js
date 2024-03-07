@@ -14,6 +14,10 @@ module.exports.createUser = async (req, res, next) => {
       throw new ValidationError('Поле "Пароль" не заполнено');
     }
     const hash = await bcrypt.hash(password, 10);
+    const userExist = await User.findOne({ email });
+    if (userExist) {
+      return next(new ConflictError('Такой пользователь уже существует'));
+    }
     const user = User.create({ email, password: hash, name });
     return res.status(CREATED).send({
       _id: user._id,
@@ -66,10 +70,10 @@ module.exports.getUser = async (req, res, next) => {
 
 module.exports.updateUser = async (req, res, next) => {
   try {
-    const { name } = req.body;
+    const { name, email } = req.body;
     const user = await User.findByIdAndUpdate(
       req.user._id,
-      { name },
+      { name, email },
       { new: true, runValidators: true },
     )
       .orFail(() => new NotFoundError('Пользователь по указанному ID не найден'));
